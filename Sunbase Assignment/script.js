@@ -18,14 +18,14 @@ $(document).ready(function() {
     addTextarea();
   });
 
-  // Save Button Click
+  // Save Button 
   $('#saveBtn').click(function() {
     if (validateForm()) {
-      saveFormData(); // Call the saveFormData function if form is valid
+      saveFormData(); 
     }
   });
 
-  // Delete Icon Click
+  // Delete Icon 
   $(document).on('click', '.delete-icon', function() {
     $(this).closest('.input-group').remove();
   });
@@ -38,12 +38,9 @@ $(document).ready(function() {
 function validateForm() {
   var isValid = true;
 
-  // Iterate over each input-group and check if any input is empty
   $('.input-group').each(function() {
-    var inputType = $(this).find('input, select, textarea').prop('tagName').toLowerCase(); // Get the type of input (input, select, textarea)
+    var inputType = $(this).find('input, select, textarea').prop('tagName').toLowerCase(); 
     var value;
-
-    // Based on the input type, get the value
     if (inputType === 'input') {
       value = $(this).find('input').val();
     } else if (inputType === 'select') {
@@ -51,12 +48,10 @@ function validateForm() {
     } else if (inputType === 'textarea') {
       value = $(this).find('textarea').val();
     }
-
-    // If value is empty, show alert and mark form as invalid
     if (value.trim() === '') {
       alert('Please fill in all fields.');
       isValid = false;
-      return false; // Exit the loop early if any field is empty
+      return false; 
     }
   });
 
@@ -68,15 +63,12 @@ function validateForm() {
 
 // Function to save form data
 function saveFormData() {
-  var formData = []; // Initialize an empty array to hold form data
+  var formData = []; 
 
-  // Iterate over each input-group and extract data
   $('.input-group').each(function() {
-    var inputType = $(this).find('input, select, textarea').prop('tagName').toLowerCase(); // Get the type of input (input, select, textarea)
-    var label = $(this).find('h4').text(); // Get the label text
+    var inputType = $(this).find('input, select, textarea').prop('tagName').toLowerCase(); 
+    var label = $(this).find('h4').text();
     var value;
-
-    // Based on the input type, get the value
     if (inputType === 'input') {
       value = $(this).find('input').val();
     } else if (inputType === 'select') {
@@ -87,16 +79,14 @@ function saveFormData() {
 
     // Construct an object with id, type, label, and value
     var data = {
-      id: generateUUID(), // Generate a unique ID for each input-group
+      id: generateUUID(), 
       type: inputType,
       label: label,
       value: value
     };
 
-    formData.push(data); // Push the data object to the formData array
+    formData.push(data); 
   });
-
-  // Log the formData array to the console as a JSON object
   console.log(JSON.stringify(formData));
 }
 
@@ -180,7 +170,6 @@ $(document).on('click', '.delete-selected-btn', function() {
 });
 
 function openAddOptionPopup(selectElement) {
-  // Implement your custom pop-up screen logic here to add a new option
   var newOption = prompt('Enter the new option:');
   if (newOption) {
     var option = $('<option>').val(newOption).text(newOption);
